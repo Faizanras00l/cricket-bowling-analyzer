@@ -37,8 +37,8 @@ BowlForm AI is an AI-powered web application that analyzes cricket bowling actio
 1. **Clone the Repository**
 
    ```sh
-   git clone https://github.com/yourusername/bowlform-ai.git
-   cd bowlform-ai
+   !git clone https://github.com/Faizanras00l/cricket-bowling-analyzer.git
+   %cd cricket-bowling-analyzer
    ```
 
 2. **Install Python Dependencies**
@@ -132,5 +132,6 @@ This project is for educational and research purposes. See [LICENSE](LICENSE) fo
 ---
 
 ## 📬 Contact
+
 
 For questions or contributions, open an issue or contact [your.email@example.com](mailto:your.email@example.com).
