@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BowlForm AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800;family=Montserrat:wght@300;family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<style type="text/tailwindcss">
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0); }
+    }
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4);}
+        70% { box-shadow: 0 0 0 20px rgba(255,255,255,0);}
+        100% { box-shadow: 0 0 0 0 rgba(255,255,255,0);}
+    }
+    .animate-float { animation: float 6s ease-in-out infinite; }
+    .animate-pulse-glow { animation: pulse 2s infinite; }
+    .font-orbitron { font-family: 'Orbitron', sans-serif; }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .fade-out {
+        animation: fadeOut 1s ease-in-out forwards;
+        animation-delay: 2.5s;
+    }
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; visibility: hidden; }
+    }
+    .particle {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.1);
+        animation: rise 10s infinite linear;
+    }
+    @keyframes rise {
+        from { transform: translateY(100vh) scale(0); opacity: 1; }
+        to { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+    :root {
+        --brand-glow: #19faaa;
+        --primary-glow: 0 0 15px rgba(14, 168, 240, 0.6), 0 0 5px rgba(14, 168, 240, 0.8);
+        --neon-blue: #0ea8f0;
+    }
+    .glassmorphic {
+        backdrop-filter: blur(12px);
+        background: rgba(255,255,255,0.05);
+        border-radius: 16px;
+        box-shadow: 0 0 20px rgba(25,250,170,0.3);
+    }
+    .upload-button {
+        box-shadow: 0 0 15px 5px rgba(25,250,170,0.5), 0 0 30px 10px rgba(25,250,170,0.3);
+    }
+    .upload-button:hover {
+        box-shadow: 0 0 20px 7px rgba(25,250,170,0.7), 0 0 40px 15px rgba(25,250,170,0.4);
+    }
+    .loader {
+        border: 4px solid rgba(255,255,255,0.2);
+        border-left-color: var(--brand-glow);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    body {
+        background-color: #0d1117;
+        font-family: 'Montserrat', 'Space Grotesk', sans-serif;
+    }
+    .orbitron { font-family: 'Orbitron', sans-serif; }
+    .glassmorphic-analysis {
+        background: rgba(22, 29, 39, 0.6);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.1);
+        box-shadow: var(--primary-glow);
+    }
+    .pill-button {
+        @apply px-6 py-2 rounded-full text-white font-bold transition-all duration-300;
+        background: rgba(14,168,240,0.2);
+        border: 1px solid var(--neon-blue);
+        box-shadow: 0 0 10px rgba(14,168,240,0.4);
+    }
+    .pill-button:hover {
+        background: var(--neon-blue);
+        box-shadow: var(--primary-glow);
+    }
+    .pill-button.active {
+        background: var(--neon-blue);
+        box-shadow: var(--primary-glow);
+    }
+</style>
+</head>
+<body class="bg-gradient-to-br from-[#0d0d26] to-[#103c3c] text-white">
+
+<!-- INTRO SECTION -->
+<div id="intro-section" class="relative w-screen h-screen overflow-hidden z-50">
+    <div class="absolute top-0 left-0 w-full h-full pointer-events-none">
+        <div class="particle" style="width: 2px; height: 2px; left: 10%; animation-duration: 12s; animation-delay: 0s;"></div>
+        <div class="particle" style="width: 3px; height: 3px; left: 20%; animation-duration: 7s; animation-delay: 1s;"></div>
+        <div class="particle" style="width: 1px; height: 1px; left: 30%; animation-duration: 9s; animation-delay: 2s;"></div>
+        <div class="particle" style="width: 2px; height: 2px; left: 40%; animation-duration: 15s; animation-delay: 3s;"></div>
+        <div class="particle" style="width: 3px; height: 3px; left: 50%; animation-duration: 8s; animation-delay: 4s;"></div>
+        <div class="particle" style="width: 1px; height: 1px; left: 60%; animation-duration: 11s; animation-delay: 5s;"></div>
+        <div class="particle" style="width: 2px; height: 2px; left: 70%; animation-duration: 13s; animation-delay: 6s;"></div>
+        <div class="particle" style="width: 3px; height: 3px; left: 80%; animation-duration: 6s; animation-delay: 7s;"></div>
+        <div class="particle" style="width: 1px; height: 1px; left: 90%; animation-duration: 10s; animation-delay: 8s;"></div>
+    </div>
+    <div class="fade-out flex flex-col items-center justify-center h-full text-center">
+        <div class="animate-float">
+            <div class="relative w-48 h-48 md:w-56 md:h-56 animate-pulse-glow rounded-full">
+                <svg class="w-full h-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" fill="none" r="45" stroke="white" stroke-width="2"></circle>
+                    <path d="M25,50 a25,25 0 1,0 50,0" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"></path>
+                    <path d="M25,50 a25,25 0 1,1 50,0" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"></path>
+                    <text fill="white" font-family="Arial" font-size="10" text-anchor="middle" x="50" y="55">LOGO</text>
+                </svg>
+            </div>
+        </div>
+        <h1 class="font-orbitron text-white text-[42px] md:text-[56px] font-extrabold mt-8">BowlForm AI</h1>
+        <p class="font-montserrat text-gray-300 text-[18px] md:text-[22px] font-light mt-2 tracking-wider">Refine. Review. Rise.</p>
+    </div>
+</div>
+
+<!-- UPLOAD SECTION -->
+<div id="upload-section" class="relative min-h-screen w-full overflow-hidden hidden">
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDFHj-Ym7D_G1v36n_m41x2zY0S9Yc7i6j9iXn0eX9zR6P0iZ1fX6yV9wX8bC4mO8hQ7jN9rW1sT2jV5kC4gB3pI5oF7hG6uJ8kL9sP0wR1aD3bC2vM1nB4gH5eY6iJ7kL9s');"></div>
+    <div class="absolute inset-0 bg-gray-900/70 backdrop-blur-sm"></div>
+    <div class="relative z-10 flex min-h-screen w-full items-center justify-center p-4" id="upload-form">
+        <div class="w-full max-w-lg">
+            <div class="glassmorphic p-6 md:p-8">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl md:text-4xl font-bold text-white">Bowling Analysis</h1>
+                    <p class="text-gray-300 mt-2">Get instant feedback on your action.</p>
+                </div>
+                <form class="space-y-6" id="analysis-form">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-200" for="name">Name</label>
+                        <input class="mt-1 block w-full bg-white/10 border border-white/20 rounded-lg py-3 px-4 text-white placeholder-gray-400 focus:ring-2 focus:ring-[var(--brand-glow)] focus:border-[var(--brand-glow)] transition-all" id="name" name="name" placeholder="e.g., Jasprit Bumrah" type="text"/>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-200" for="age">Age</label>
+                            <input class="mt-1 block w-full bg-white/10 border border-white/20 rounded-lg py-3 px-4 text-white placeholder-gray-400 focus:ring-2 focus:ring-[var(--brand-glow)] focus:border-[var(--brand-glow)] transition-all" id="age" name="age" placeholder="e.g., 28" type="number"/>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-200" for="datetime">Date &amp; Time</label>
+                            <input class="mt-1 block w-full bg-white/10 border border-white/20 rounded-lg py-3 px-4 text-gray-400 cursor-not-allowed" disabled="" id="datetime" name="datetime" type="text" value=""/>
+                        </div>
+                    </div>
+                    <div class="text-center pt-4">
+                        <label class="cursor-pointer group" for="video-upload">
+                            <div class="w-40 h-40 mx-auto border-2 border-dashed border-gray-500 rounded-full flex flex-col items-center justify-center transition-all duration-300 hover:border-[var(--brand-glow)] hover:bg-white/5 upload-button">
+                                <span class="material-icons text-5xl text-gray-400 group-hover:text-[var(--brand-glow)] transition-colors">
+                                    upload
+                                </span>
+                                <span class="mt-2 text-sm font-semibold text-white">Upload Video</span>
+                            </div>
+                        </label>
+                        <input accept=".mp4,.mov,.avi" class="hidden" id="video-upload" type="file"/>
+                        <p class="text-xs text-gray-400 mt-4">Use left or right side-view, slow-motion if possible.</p>
+                        <p class="text-xs text-gray-500 mt-1">Accepts .mp4, .mov, .avi</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="hidden fixed inset-0 z-50 bg-gray-900/80 backdrop-blur-md flex items-center justify-center" id="processing-modal">
+        <div class="text-center">
+            <div class="loader mx-auto"></div>
+            <h2 class="text-2xl font-bold mt-6 text-white">Processing your action...</h2>
+            <p class="text-gray-300 mt-2">Extracting pose, joint angles, and stride metrics...</p>
+        </div>
+    </div>
+</div>
+
+<!-- ANALYSIS SECTION -->
+<div id="analysis-section" class="min-h-screen flex flex-col items-center justify-center p-4 lg:p-8 bg-gradient-to-br from-[#0d1117] to-[#101d23] hidden">
+    <header class="w-full max-w-7xl mx-auto mb-6">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <svg class="h-8 w-8 text-[var(--neon-blue)]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15.93V6.07c0-.41.47-.65.8-.4l5.6 4.93c.27.24.27.64 0 .88l-5.6 4.93c-.33.25-.8.01-.8-.4zM12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill-rule="evenodd"></path></svg>
+                <h1 class="text-2xl orbitron font-bold tracking-wider">BowlForm AI</h1>
+            </div>
+            <nav class="hidden md:flex items-center gap-6">
+                <a class="hover:text-[var(--neon-blue)] transition-colors cursor-pointer" id="nav-home">Home</a>
+                <a class="text-[var(--neon-blue)] font-bold cursor-pointer" id="nav-analysis">Analysis</a>
+            </nav>
+        </div>
+    </header>
+    <main class="w-full flex flex-col lg:flex-row items-start justify-center gap-8 max-w-7xl mx-auto">
+        <aside class="w-full lg:w-1/4 glassmorphic-analysis rounded-2xl p-6 order-2 lg:order-1">
+            <h2 class="orbitron text-xl font-bold mb-4 text-[var(--neon-blue)]">AI SUGGESTION</h2>
+            <div class="space-y-4">
+                <p class="text-gray-300">Based on your pose metrics, our AI suggests focusing on:</p>
+                <ul class="list-disc list-inside space-y-2 text-gray-200">
+                    <li>
+                        <span class="font-bold">Front Foot Landing:</span> Aim for a more braced front leg to improve energy transfer.
+                    </li>
+                    <li>
+                        <span class="font-bold">Arm Path:</span> Your bowling arm is slightly wide. Try to keep it closer to your body for better accuracy.
+                    </li>
+                    <li>
+                        <span class="font-bold">Head Position:</span> Keep your head still and level through the release for consistent balance.
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <div class="w-full lg:w-1/2 flex flex-col items-center order-1 lg:order-2">
+            <div class="w-full aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl shadow-[var(--neon-blue)]/20">
+                <video class="w-full h-full object-cover" controls="" poster="https://storage.googleapis.com/aida-asset-storage/6b6e4e5b-b9f0-4d43-8531-1555543d2c88.jpg" id="analysis-video">
+                    <source src="https://storage.googleapis.com/aida-asset-storage/6b6e4e5b-b9f0-4d43-8531-1555543d2c88.jpg" type="video/mp4"/>
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 w-full">
+                <button class="pill-button w-full sm:w-auto flex items-center justify-center gap-2" id="full-view-btn">
+                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                        <path clip-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.022 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" fill-rule="evenodd"></path>
+                    </svg>
+                    Full View
+                </button>
+                <button class="pill-button active w-full sm:w-auto flex items-center justify-center gap-2" id="skeleton-view-btn">
+                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path clip-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" fill-rule="evenodd"></path>
+                    </svg>
+                    Skeleton View
+                </button>
+                <button class="pill-button w-full sm:w-auto flex items-center justify-center gap-2" id="download-btn">
+                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path clip-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" fill-rule="evenodd"></path>
+                    </svg>
+                    Download
+                </button>
+            </div>
+        </div>
+        <aside class="w-full lg:w-1/4 glassmorphic-analysis rounded-2xl p-6 order-3">
+            <h2 class="orbitron text-xl font-bold mb-4 text-[var(--neon-blue)]">ANGLE METRICS</h2>
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <span class="font-semibold text-gray-300">Front Knee Angle</span>
+                    <span class="orbitron font-bold text-2xl text-white" id="knee-angle">148°</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2.5">
+                    <div class="bg-[var(--neon-blue)] h-2.5 rounded-full" style="width: 82%"></div>
+                </div>
+                <div class="flex justify-between items-center pt-2">
+                    <span class="font-semibold text-gray-300">Bowling Arm Angle</span>
+                    <span class="orbitron font-bold text-2xl text-white" id="arm-angle">165°</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2.5">
+                    <div class="bg-[var(--neon-blue)] h-2.5 rounded-full" style="width: 92%"></div>
+                </div>
+                <div class="flex justify-between items-center pt-2">
+                    <span class="font-semibold text-gray-300">Shoulder-Hip Separation</span>
+                    <span class="orbitron font-bold text-2xl text-white" id="shoulder-hip">25°</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-2.5">
+                    <div class="bg-[var(--neon-blue)] h-2.5 rounded-full" style="width: 55%"></div>
+                </div>
+            </div>
+            <p class="text-xs text-gray-500 mt-6 text-center italic">Metrics update in real-time as video plays.</p>
+        </aside>
+    </main>
+</div>
+
+<script>
+    // Show upload section after intro animation
+    setTimeout(() => {
+        document.getElementById('intro-section').style.display = 'none';
+        document.getElementById('upload-section').style.display = 'block';
+    }, 3500);
+
+    // Set current date/time in upload form
+    function setDateTime() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = (now.getMonth() + 1).toString().padStart(2, '0');
+        const day = now.getDate().toString().padStart(2, '0');
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        document.getElementById('datetime').value = `${year}-${month}-${day} ${hours}:${minutes}`;
+    }
+    setDateTime();
+
+    // Handle video upload and show processing modal, then analysis
+    document.getElementById('video-upload').addEventListener('change', function() {
+        if (this.files && this.files.length > 0) {
+            document.getElementById('upload-form').classList.add('hidden');
+            document.getElementById('processing-modal').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('upload-section').style.display = 'none';
+                document.getElementById('processing-modal').classList.add('hidden');
+                document.getElementById('analysis-section').style.display = 'flex';
+            }, 3500);
+        }
+    });
+
+    // Navigation: Home/Analysis
+    document.getElementById('nav-home').addEventListener('click', function() {
+        document.getElementById('analysis-section').style.display = 'none';
+        document.getElementById('upload-section').style.display = 'block';
+        document.getElementById('upload-form').classList.remove('hidden');
+    });
+
+    document.getElementById('nav-analysis').addEventListener('click', function() {
+        document.getElementById('upload-section').style.display = 'none';
+        document.getElementById('analysis-section').style.display = 'flex';
+    });
+
+    // Download button (demo)
+    document.getElementById('download-btn').addEventListener('click', function() {
+        alert('Download feature coming soon!');
+    });
+
+    // Full View/Skeleton View button toggle (demo)
+    document.getElementById('full-view-btn').addEventListener('click', function() {
+        this.classList.add('active');
+        document.getElementById('skeleton-view-btn').classList.remove('active');
+        // You can add logic to change the video source or overlay here
+    });
+    document.getElementById('skeleton-view-btn').addEventListener('click', function() {
+        this.classList.add('active');
+        document.getElementById('full-view-btn').classList.remove('active');
+        // You can add logic to change the video source or overlay here
+    });
+</script>
+</body>
+</html>
