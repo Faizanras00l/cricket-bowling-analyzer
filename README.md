@@ -134,4 +134,5 @@ This project is for educational and research purposes. See [LICENSE](LICENSE) fo
 ## 📬 Contact
 
 
-For questions or contributions, open an issue or contact [your.email@example.com](mailto:your.email@example.com).
+For questions or contributions, open an issue or contact [faizanrasool20004@gmail.com](mailto:faizanrasool20004@gmail.com).
+
